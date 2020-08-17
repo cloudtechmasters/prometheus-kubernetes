@@ -1,0 +1,23 @@
+## Nginx Ingress
+## Follow https://devopscube.com/setup-ingress-kubernetes-nginx-controller/
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus-ui
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  # Use the host you used in your kubernetes Ingress Configurations
+  - host: prometheus.cloudtechmasters.tk
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-service
+          servicePort: 8080
+  tls:
+  - hosts: 
+    - prometheus.cloudtechmasters
+    secretName: prometheus-secret
